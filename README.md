@@ -412,5 +412,5 @@ VITE_DEV_MODE=true
 ---
 
 <p align="center">
-  Made with ❤️ by LifeOS Team
+  Made with ❤️ by VignaChu
 </p>
