@@ -1,0 +1,8 @@
+{
+  "admin": {
+    "username": "admin",
+    "password": "114514",
+    "role": "ADMIN",
+    "enabled": true
+  }
+}

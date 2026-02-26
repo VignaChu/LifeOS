@@ -1,0 +1,139 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: lifeos-backend
+  
+  # 数据源配置 - HikariCP
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lifeos?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 114514
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      # 连接池名称
+      pool-name: LifeOS-HikariPool
+      # 最小空闲连接数
+      minimum-idle: 5
+      # 最大连接数
+      maximum-pool-size: 20
+      # 连接空闲超时时间（毫秒）
+      idle-timeout: 300000
+      # 连接最大生命周期（毫秒）
+      max-lifetime: 1200000
+      # 连接超时时间（毫秒）
+      connection-timeout: 20000
+      # 测试连接是否可用的SQL
+      connection-test-query: SELECT 1
+      # 自动提交
+      auto-commit: true
+  
+  # Redis 配置
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 
+      database: 0
+      timeout: 6000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+        shutdown-timeout: 100ms
+      # 连接失败时不阻止应用启动
+      connect-timeout: 2000ms
+      # 启用自动重新连接
+      client-type: lettuce
+  
+  # Jackson 配置
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+    serialization:
+      write-dates-as-timestamps: false
+  
+  # Spring AI 配置
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY:dummy-key-for-startup}
+      base-url: ${OPENAI_BASE_URL:https://api.openai.com}
+      chat:
+        options:
+          model: gpt-3.5-turbo
+          temperature: 0.7
+          max-tokens: 2000
+
+# MyBatis 配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.lifeos.entity
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+
+# Knife4j 配置
+knife4j:
+  enable: true
+  openapi:
+    title: LifeOS API
+    description: LifeOS - AI原生生活追踪器API文档
+    version: 1.0.0
+    contact:
+      name: LifeOS Team
+      email: lifeos@example.com
+    group:
+      default:
+        group-name: default
+        api-rule: package
+        api-rule-resources:
+          - com.lifeos.controller
+
+  # Spring Boot Admin 配置
+  boot:
+    admin:
+      client:
+        url: http://localhost:8080
+        instance:
+          service-url: http://localhost:8080
+          health-url: http://localhost:8080/actuator/health
+          management-url: http://localhost:8080/actuator
+
+# Actuator 配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    metrics:
+      enabled: true
+    logfile:
+      enabled: true
+  info:
+    env:
+      enabled: true
+
+# 应用信息
+info:
+  app:
+    name: LifeOS Backend
+    description: AI原生生活追踪器后端服务
+    version: 1.0.0
+
+# 日志配置
+logging:
+  level:
+    com.lifeos: DEBUG
+    org.springframework.web: INFO
+    org.springframework.ai: DEBUG
+    de.codecentric.boot.admin: INFO
+  file:
+    name: logs/lifeos.log
