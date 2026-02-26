@@ -166,6 +166,12 @@ pnpm run dev
 
 ```
 LifeOS/
+├── deploy.bat               # 一键部署脚本（英文版）
+├── start.bat                # 一键启动脚本（英文版）
+├── start-backend.bat        # 启动后端服务脚本
+├── start-frontend.bat       # 启动用户前端脚本
+├── start-admin.bat          # 启动管理后台脚本
+├── start-all.bat            # 启动全部服务脚本
 ├── lifeos-backend/          # 后端服务
 │   ├── src/main/java/
 │   │   └── com/lifeos/
@@ -198,6 +204,27 @@ LifeOS/
 │
 └── README.md
 ```
+
+## 🚀 部署与启动脚本
+
+本项目提供了多个批处理脚本来简化部署和启动流程：
+
+### deploy.bat - 一键部署脚本
+- **功能**: 自动配置数据库连接、端口设置，构建后端服务，安装前端依赖，并生成启动脚本
+- **特点**: 支持自定义MySQL连接信息和各服务端口号，自动更新配置文件
+- **使用方法**: 以管理员身份运行，按提示输入配置信息
+
+### start.bat - 一键启动脚本  
+- **功能**: 自动检查运行环境，启动Redis服务（如可用），依次启动后端、用户前端和管理后台
+- **特点**: 自动安装首次运行所需依赖，显示各服务访问地址
+- **使用方法**: 直接双击运行或在命令行执行
+
+### start-*.bat - 分项启动脚本
+- **功能**: 分别启动各个服务组件（生成于deploy.bat执行过程中）
+  - `start-backend.bat` - 启动后端服务
+  - `start-frontend.bat` - 启动用户前端
+  - `start-admin.bat` - 启动管理后台
+  - `start-all.bat` - 启动全部服务
 
 ---
 
